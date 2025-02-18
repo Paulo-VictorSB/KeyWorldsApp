@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Aewsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- jQuery -->
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <title>Key Worlds - App!</title>
+    <style>
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1; /* Faz o conteúdo expandir e empurrar o footer para baixo */   
+        }
+
+        .ft {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.01); /* Aumento de 5% */
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+    </style>
+</head>
+<body class="bg-dark">
+    
+    <header>
+        <div class="container text-warning py-3 mb-4">
+            <div class="row">
+                <div class="col-2">
+                    <h3>&lt;/Key Worlds></h3>
+                </div>
+                <div class="col text-end text-white">
+                    <a href="#" class="btn bg-warning">Logar</a>
+                    <a href="#" class="btn bg-warning">Registar-se</a>
+                </div>
+            </div>
+            <hr class="text-warning">
+        </div>
+    </header>
+    
+    <main>
+        <div class="container text-white">
+            <div class="row text-center">
+                <div class="col">
+                    <h1 class="ft">&lt;/Key Worlds></h1>
+                </div>
+            </div>
+            <div class="row text-center justify-content-center">
+                <div class="col-8">
+                    <h6 class="ft">
+                        <span class="text-warning">Key Worlds</span> é um aplicativo criado com o intuito de testar suas <span class="text-warning">habilidades</span> com a <span class="text-warning">digitação</span> de maneira <span class="text-warning">simples</span>, porém bastante <span class="text-warning">funcional</span>. O jogo desafia sua <span class="text-warning">velocidade</span> e <span class="text-warning">precisão</span> enquanto digita palavras de forma <span class="text-warning">divertida</span> e <span class="text-warning">envolvente</span>. Para acessar o menu principal, visualizar os rankings, o placar e jogar, é necessário realizar o <span class="text-warning">login</span> ou o <span class="text-warning">registro</span>. Não perca tempo, entre agora e comece a testar suas habilidades!
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </main> 
+    
+    <footer>
+        <div class="container">
+            <hr class="text-warning">
+            <div class="row text-center">
+                <div class="col">
+                    <p class="text-warning">Paulo Victor&copy; 2025 - 2025</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap para mais funcionalidades -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
