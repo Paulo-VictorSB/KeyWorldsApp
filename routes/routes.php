@@ -9,5 +9,6 @@ return [
     'ranking',
     'play',
     '404',
-    'termos'
+    'termos',
+    'recovery_password'
 ];

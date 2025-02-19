@@ -24,6 +24,10 @@ switch($route){
         require_once('app/view/inc/header.php');
         require_once('app/view/forgot_password.php');
         break;
+    case 'recovery_password':
+        require_once('app/view/inc/header.php');
+        require_once('app/view/recovery_password.php');
+        break;
     case 'register':
         require_once('app/view/inc/header.php');
         require_once('app/view/register.php');

@@ -1,4 +1,4 @@
-<?php require_once('app/controller/forgot_password.php')?>
+<?php require_once('app/controller/recovery_password.php')?>
 
 <div class="container center-container">
         <div class="row">
@@ -9,12 +9,12 @@
                     <p>Confirme seus dados para comprovar que a conta é realmente sua. </p>
                     <form method="POST">
                         <div class="form-group my-2">
-                            <label for="user"><i class="fas fa-user"></i> Usuário</label>
-                            <input type="text" class="form-control" id="user" placeholder="Digite seu Usuário" name="nome">
+                            <label for="password"><i class="fas fa-lock"></i> Senha</label>
+                            <input type="password" class="form-control" id="password" placeholder="Digite sua senha" name="senha" required>
                         </div>
                         <div class="form-group my-2">
-                            <label for="email"><i class="fas fa-envelope"></i> Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Digite seu email" name="email">
+                            <label for="password"><i class="fas fa-lock"></i> Confirmar senha</label>
+                            <input type="password" class="form-control" id="password" placeholder="Confirme a nova senha" name="confirmar_senha" required>
                         </div>
 
                         <?php if(!empty($erro)): ?>
@@ -23,7 +23,7 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
 
-                        <button type="submit" class="btn w-100 my-2 btn-warning btn-block">Verificar</button>
+                        <button type="submit" class="btn w-100 my-2 btn-warning btn-block">Confirmar</button>
                     </form>
                 </div>
             </div>
