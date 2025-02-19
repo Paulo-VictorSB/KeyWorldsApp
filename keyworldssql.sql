@@ -22,14 +22,18 @@ USE `keyworlds`;
 -- Copiando estrutura para tabela keyworlds.jogo
 CREATE TABLE IF NOT EXISTS `jogo` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `pontos` int unsigned DEFAULT NULL,
+  `ponto` int DEFAULT '0',
   `id_usuario` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `FK__usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela keyworlds.jogo: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela keyworlds.jogo: ~3 rows (aproximadamente)
+INSERT INTO `jogo` (`id`, `ponto`, `id_usuario`) VALUES
+	(2, 9, 7),
+	(3, 7, 8),
+	(4, 27, 9);
 
 -- Copiando estrutura para tabela keyworlds.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -38,14 +42,22 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(200) DEFAULT NULL,
   `senha` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Copiando dados para a tabela keyworlds.usuarios: ~4 rows (aproximadamente)
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`) VALUES
-	(1, 'Paulo', 'paulovdbarbosa@gmail.com', '$2y$10$1l9S5UEdMaQwyhrLyGhhPuhmoOeAxx7PtCnmLJhFJzAyLN/ulpOZC'),
-	(2, 'admin', 'admin@admin.com', '$2y$10$30SwJuVAy486zL7aWLLTL.eAHoHCjjcAkHPEoyhd5HE1FymTg3MXi'),
-	(3, 'asdasdasd', 'asdasd@asdasda.asdsad', '$2y$10$OA0RDx1x4tB8YeXhnbEAUuXdYLFRUOoCfvXD0DSH3GeZmi7LuB10O'),
-	(4, 'Aline', 'aline@gmail.com', '$2y$10$5btn2nLAWNo.DBggCQTmrOfDU9LPoq7.LqdYfijqEeGffnq0.GBIm');
+	(7, 'admin', 'admin@admin.com', '$2y$10$ZOZlaEjhXoglcL6wZe4NVeZojS7ROYSN9Fb/Qgwl/HuGNY98LeJeq'),
+	(8, 'paulo', 'paulovdbarbosa@gmail.com', '$2y$10$QcU.exLGXgFW9GqvDUnQA..4BliMwxmWHcwbaaHBwyTDloN9dJ2dy'),
+	(9, 'josinalva', 'josinalva@gmail.com', '$2y$10$Y3sXDkPRGD4SwECgKJmtCOpVQNkX3M7KXMZ/T648zqXBTKG4sjtDi');
+
+-- Copiando estrutura para trigger keyworlds.after_user_insert
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+DELIMITER //
+CREATE TRIGGER `after_user_insert` AFTER INSERT ON `usuarios` FOR EACH ROW BEGIN
+    INSERT INTO jogo (id_usuario, ponto) VALUES (NEW.id, 0);
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

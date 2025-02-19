@@ -10,5 +10,6 @@ return [
     'play',
     '404',
     'termos',
-    'recovery_password'
+    'recovery_password',
+    'perfil'
 ];

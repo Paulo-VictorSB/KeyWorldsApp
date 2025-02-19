@@ -106,3 +106,17 @@ main {
     color: white;
     cursor: pointer;
 }
+
+.borda_animada{
+    animation: borda_animada 1s infinite;
+}
+
+@keyframes borda_animada {
+    0% {
+        box-shadow: 0 0 0px #ffc107
+    }
+
+    100% {
+        box-shadow: 0 0 15px #ffc107
+    }
+}

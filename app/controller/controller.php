@@ -37,6 +37,21 @@ switch($route){
         require_once('app/view/home.php');
         require_once('app/view/inc/footer.php');
         break;
+    case 'play':
+        require_once('app/view/inc/header.php');
+        require_once('app/view/play.php');
+        require_once('app/view/inc/footer.php');
+        break;
+    case 'perfil':
+        require_once('app/view/inc/header.php');
+        require_once('app/view/perfil.php');
+        require_once('app/view/inc/footer.php');
+        break;
+    case 'ranking':
+        require_once('app/view/inc/header.php');
+        require_once('app/view/ranking.php');
+        require_once('app/view/inc/footer.php');
+        break;
     case 'termos':
         require_once('app/view/inc/header.php');
         require_once('app/view/termos.php');
