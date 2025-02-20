@@ -48,7 +48,7 @@ Instalação e Configuração
 
 Clone este repositório:
 
-git clone https://github.com/Paulo-VictorSB/keyworlds.git
+git clone https://github.com/Paulo-VictorSB/KeyWorldsApp.git)
 
 Configure o ambiente local:
 
