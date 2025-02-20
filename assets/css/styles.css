@@ -120,3 +120,10 @@ main {
         box-shadow: 0 0 15px #ffc107
     }
 }
+
+#textoProtegido {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}

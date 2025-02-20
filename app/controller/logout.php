@@ -1,10 +1,10 @@
-<?php
-session_start();
-
-$_SESSION = [];
-
-session_destroy();
-
-header('Location: ../../?route=index');
-exit();
+<?php
+session_start();
+
+$_SESSION = [];
+
+session_destroy();
+
+header('Location: ../../?route=index');
+exit();
 ?>

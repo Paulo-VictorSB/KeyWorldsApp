@@ -6,6 +6,7 @@ use DATABASE\Database;
 $database = new Database(MYSQL_CONFIG);
 $erro = "";
 
+// Gera um texto único aleatório
 function gerarTextoUnico($tamanho = 10) {
     $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$&';
     $caracteresArray = str_split($caracteres);
@@ -13,41 +14,55 @@ function gerarTextoUnico($tamanho = 10) {
     return implode('', array_slice($caracteresArray, 0, $tamanho));
 }
 
+// Inicializa a variável de sessão se não existir
 if (!isset($_SESSION['textoUnico'])) {
     $_SESSION['textoUnico'] = gerarTextoUnico();
 }
 
 $textoUnico = $_SESSION['textoUnico'];
+$pontoAtual = 0;
 
-$params = [':id' => $_SESSION['id']];
-$result = $database->execute_query("SELECT ponto FROM jogo WHERE id_usuario = :id", $params);
-if($result->affected_rows == 1){
-    $pontoAtual = $result->results[0]['ponto'];
-} else {
-    $pontoAtual = 0;
-}
+// Verifica se o ID do usuário está na sessão
+if (isset($_SESSION['id'])) {
+    $params = [':id' => $_SESSION['id']];
+    $result = $database->execute_query("SELECT ponto FROM jogo WHERE id_usuario = :id", $params);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $resposta = $_POST['respostaInput'] ?? '';
-    $textoUnico = $_SESSION['textoUnico'] ?? gerarTextoUnico(); 
+    // Se houver um resultado, atribui o valor da pontuação atual
+    if (!empty($result->results)) {
+        $pontoAtual = $result->results[0]['ponto'];
+    }
 
-    if ($resposta === $textoUnico) {
-        $novoPonto = $pontoAtual + 1;
+    // Se o formulário foi enviado
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $resposta = $_POST['respostaInput'] ?? '';
+        $textoUnico = $_SESSION['textoUnico'] ?? gerarTextoUnico();
 
-        $params = [
-            ':id' => $_SESSION['id'],
-            ':ponto' => $novoPonto
-        ];
+        if ($resposta === $textoUnico) {
+            $novoPonto = $pontoAtual + 1;
 
-        $adicionarPontos = $database->execute_non_query("
-            UPDATE jogo
-            SET ponto = :ponto
-            WHERE id_usuario = :id
-        ", $params);
+            $params = [
+                ':id' => $_SESSION['id'],
+                ':ponto' => $novoPonto
+            ];
 
-        $_SESSION['textoUnico'] = gerarTextoUnico();
-    } else {
-        $erro = "Resposta incorreta. Tente novamente!";
+            // Atualiza a pontuação no banco de dados
+            $adicionarPontos = $database->execute_non_query("
+                UPDATE jogo
+                SET ponto = :ponto
+                WHERE id_usuario = :id
+            ", $params);
+
+            // Atualiza a sessão com um novo texto único
+            $_SESSION['textoUnico'] = gerarTextoUnico();
+
+            // Obtém o novo valor atualizado do banco
+            $result = $database->execute_query("SELECT ponto FROM jogo WHERE id_usuario = :id", [':id' => $_SESSION['id']]);
+            if (!empty($result->results)) {
+                $pontoAtual = $result->results[0]['ponto'];
+            }
+        } else {
+            $erro = "Resposta incorreta. Tente novamente!";
+        }
     }
 }
 
@@ -57,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container border-warning text-white text-center border rounded py-5 borda_animada" style="min-height: 50vh;">
         <div class="row mt-5 mb-3">
             <div class="col">
-                <h1 class="text-warning text-break"><?=$_SESSION['textoUnico']?></h1>
+                <h1 class="text-warning text-break" id="textoProtegido"><?=$_SESSION['textoUnico']?></h1>
             </div>
         </div>
         <div class="row my-3">
@@ -90,3 +105,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </main>
+
+<script>
+        $(document).ready(function () {
+            var texto = $("#textoProtegido");
+
+            // Impede a seleção de texto
+            texto.on("selectstart", function (event) {
+                event.preventDefault();
+            });
+
+            // Impede copiar usando Ctrl+C
+            $(document).on("keydown", function (event) {
+                if (event.ctrlKey && (event.key === "c" || event.key === "C")) {
+                    event.preventDefault();
+                    alert("Copiar este conteúdo não é permitido!");
+                }
+            });
+
+            // Impede copiar com o botão direito
+            texto.on("contextmenu", function (event) {
+                event.preventDefault();
+                alert("O menu de contexto foi desativado!");
+            });
+
+            // Impede copiar diretamente
+            texto.on("copy", function (event) {
+                event.preventDefault();
+                alert("Copiar este conteúdo não é permitido!");
+            });
+        });
+    </script>
